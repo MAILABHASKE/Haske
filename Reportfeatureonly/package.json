@@ -1,0 +1,53 @@
+{
+  "name": "Haske",
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "sudo node server.cjs & vite",
+    "build": "concurrently \"node server.cjs\" \"vite build\"",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.5.1",
+    "@popperjs/core": "^2.11.8",
+    "@sendgrid/mail": "^8.1.4",
+    "@tinymce/tinymce-vue": "^6.1.0",
+    "@tiptap/starter-kit": "^2.8.0",
+    "@tiptap/vue-3": "^2.8.0",
+    "@vuepic/vue-datepicker": "^8.3.1",
+    "aws-sdk": "^2.1692.0",
+    "axios": "^1.7.7",
+    "body-parser": "^1.20.3",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "bootstrap-vue": "^2.23.1",
+    "bootstrap5-tags": "^1.7.1",
+    "cors": "^2.8.5",
+    "docx": "^9.0.2",
+    "express": "^4.21.1",
+    "file-saver": "^2.0.5",
+    "fs": "^0.0.1-security",
+    "googleapis": "^144.0.0",
+    "https": "^1.0.0",
+    "jquery": "^3.7.1",
+    "jspdf": "^2.5.2",
+    "keycloak-js": "^24.0.1",
+    "mitt": "^3.0.1",
+    "pdfkit": "^0.15.0",
+    "sequelize": "^6.37.5",
+    "signature_pad": "^5.0.4",
+    "sqlite3": "^5.1.7",
+    "tinymce": "^7.4.1",
+    "uppie": "^4.0.0",
+    "uuid": "^9.0.1",
+    "vue": "^3.4.21",
+    "vue-i18n": "^9.10.2",
+    "vue-router": "^4.3.0",
+    "vuex": "^4.1.0",
+    "vue3-observe-visibility": "^1.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "vite": "^5.1.6"
+  }
+}
