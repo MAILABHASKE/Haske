@@ -1,0 +1,98 @@
+- implement pagination to fetch studies 100 -> 200 when we scroll to the end of the study-list
+- implement pagination to fetch instances 100 -> 200 when we scroll to the end of the instance-list (displaying 2000 instances in one go sometimes takes 10 seconds !)
+
+
+- add a "reset" button (on Windows, to reload the config after you have changed it without going to the Services -> Orthanc -> Restart)
+- show ohif-vr and ohif-tmtv buttons only when relevant (analyse the content of the study)
+
+- predefined filters in config file to display below Studies:
+  - "Today": {"StudyDate": "$today"}
+  - "CT Last month": {"ModalitiesInStudy": "CT", "StudyDate": "$oneMonthAgo-"}
+    predefined keywords: $today, $yesterday, $oneWeekAgo, $oneMonthAgo, $oneYearAgo
+
+UI improvements:
+- Admin theme including responsive tables (including multiline): https://github.com/lekoala/admini
+- tags: https://github.com/lekoala/bootstrap5-tags
+- when opening the series view I would prefer to see an image and it’s labels over a list of instance numbers and paired SOPInstanceUIDs:
+  https://discourse.orthanc-server.org/t/beginner-questions-from-horos-user/5322
+
+- modification:
+  - configuration to hide DICOM UID options and select the right one directly for a given setup.
+  - add a Series Description renamer (one dialog to edit SeriesNumber + SeriesDescription of a study)
+
+- settings:
+  - show the list of /tools/accepted-transfer-syntaxes
+  - show the list of /tools/accepted-sop-classes (in 1.12.6)
+
+- show attachments
+
+- support neuro plugin (download nifti)
+
+- TagsTree: allow click on "null" tags to open /instances/../content/group,element in new window
+
+- show job details (need improvement in Orthanc API itself)
+- include an "all jobs" panel and not only our jobs (https://discourse.orthanc-server.org/t/oe2-inclusion-of-jobs-panel-in-explorer-2/3708)
+
+- list last studies received (through DICOM or upload)
+
+- UI customization:
+ - add custom actions per study/series/instances:
+   - configuration suggestion:
+     {
+       "CustomButtons": [
+         {
+           "Name": "Process study",   // the text will appear in the button tooltip
+           "Icon": "bi bi-glass",     
+           "Level": "Study",
+           "ActionUrl": "../../my-python-plugin/my-route",  // this route can be templated with e.g: ../../my-python-plugin/my-route?StudyInstanceUID=$resource-dicom-id$&orthanc-id=$resource-orthanc-id$&level=$resource-level$"
+           "ActionMethod": "POST",
+           "ActionPostPayloadTemplate": {
+             "dicom-id": "$resource-dicom-id$",
+             "orthanc-id": "$resource-orthanc-id$"
+           }
+           "EnabledUrl": "../../my-python-plugin/my-route-enabled", // optional: a GET route that returns true/false if the custom button must be enabled/disabled for this resource.  It shall be templated as well
+           
+         }
+       ]
+     }
+ - configure other viewers url (ex: radiant://?n=pstv&v=0020000D&v=%22StudyInstanceUID%22 or osirix or horos ...)
+
+- orthanc-share should generate QR code with publication links
+
+- Q&R on multiple modalities at a same time (select the modalities you want to Q&R and display the modality in the study list)
+  (same with Q&R for dicom-web and peers)
+
+- in local study list, display the number of studies that are present on a remote modality for this patient (e.g: a cold archive)
+  - Add a button to fetch all these data (todo: find a way to delete them after a while ?)
+  - same with dicom-web and peers ?
+
+
+Configuration management (ideas + implementation notes):
+-------------------------------
+
+- allow Orthanc to store anything in Global Properties.  Maybe not through the API but only through the SDK.
+  Or, only for an "admin" user ?
+
+- Edit configuration through the oe2 UI:
+  - Some immutable configuration in a config file:
+    - DB + storage
+    - Admin user !
+    - HttpPort
+  - Check if we could store a config in Global Properties (probably too early in the Orthanc init process).  We would merge the file config with the config in DB
+  - Otherwise, store the config in a file and restart Orthanc 
+    -> in Windows Service: how to tell Orthanc to use another config file ?
+    -> would be nice to have a SDK route to implement /tools/reboot with a given config file
+  - Could be a combination of 2:
+    - start Orthanc with config from file
+    - plugin reads the config in DB, generates a tmp config file -> /tools/reboot with this file
+    - that's a bit "shaky" since each cold start is made of 2 starts
+
+Ideas bag:
+*********
+
+- allow users to choose the columns in the interface (store in browser LocalStorage ?)
+- browse orthanc peer (probably need to extend the Orthanc API to avoid CORS issues)
+- show statistics/event logs: e.g: would be nice to see how many instances
+  have been received recently (from where)
+- add a button to export a whole series to jpeg (Chamrousse): we could reuse [this python code](https://orthanc.uclouvain.be/book/plugins/python.html#generating-a-mosaic-for-a-dicom-series) and trigger it from a [custom button](https://github.com/orthanc-server/orthanc-explorer-2/issues/18) (once we have implemented them !!!)
+- add a text editor to associate a radiology report or note with a study, storing it as an attachment (cf. https://discourse.orthanc-server.org/t/oe2-inclusion-of-reporting-note/)

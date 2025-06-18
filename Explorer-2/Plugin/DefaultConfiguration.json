@@ -1,0 +1,200 @@
+{
+    "OrthancExplorer2" : {
+        "Enable": true,
+        "Root" : "/ui/",
+        "IsDefaultOrthancUI": true,
+        "Theme": "dark",
+
+        "UiOptions" : {
+       
+            "EnableStudyList": true,                   
+            "EnableUpload": true,                      
+            "EnableDicomModalities": true,              
+            "EnableDeleteResources": true,            
+            "EnableDownloadZip": true,                  
+            "EnableDownloadDicomDir": true,           
+            "EnableDownloadDicomFile": true,            
+            "EnableAnonymization": true,             
+            "EnableModification": true,                 
+            "EnableSendTo": true,                      
+            "EnableApiViewMenu": true,                 
+            "EnableSettings": true,                    
+            "EnableLinkToLegacyUi": true,              
+            "EnableChangePassword": true,             
+            "EnableViewerQuickButton": true,            
+            "EnableReportQuickButton": false,          
+
+            "EnableEditLabels": true,                   
+            "AvailableLabels": [],                    
+                                                     
+            "EnableLabelsCount": true,                 
+
+            "EnableShares": false,                      
+            "DefaultShareDuration": 0,                
+            "ShareDurations": [0, 7, 15, 30, 90, 365],  
+
+            "EnableAddSeries": true,                  
+            "AddSeriesDefaultTags": {                  
+                "pdf" : {
+                    "SeriesDescription": "Report",
+                    "Modality": "DOC",
+                    "SeriesDate": "$TODAY$"             
+                },
+                "image" : {
+                    "SeriesDescription": "Picture",
+                    "Modality": "XC",
+                    "SeriesDate": "$TODAY$"
+                },
+                "stl" : {
+                    "SeriesDescription": "Model",
+                    "Modality": "M3D",
+                    "SeriesDate": "$TODAY$"
+                }
+            },
+
+
+            "EnableOpenInOhifViewer": true,          
+            "OhifViewerPublicRoot" : "http://to-be-defined/", 
+            "EnableOpenInOhifViewer3": false,         
+            "OhifViewer3PublicRoot" : "/ohif/",        
+            "EnableOpenInMedDreamViewer": false,        
+            "MedDreamViewerPublicRoot" : "http://to-be-defined/",  
+            "ViewersIcons" : {
+                "osimis-web-viewer": "bi bi-eye",
+                "stone-webviewer": "bi bi-eye-fill",
+                "ohif": "bi bi-grid",
+                "ohif-vr": "bi bi-grid-1x2",
+                "ohif-tmtv": "bi bi-grid-3x3-gap",
+                "ohif-seg": "fa-solid fa-shapes fa-button",
+                "ohif-micro": "fa-solid fa-microscope fa-button",
+                "meddream": "bi bi-columns-gap",
+                "volview": "bi bi-box",
+                "wsi": "fa-solid fa-microscope fa-button"
+            },
+            "ViewersOrdering" : [
+
+                "stone-webviewer",
+                "ohif",
+                "ohif-vr",
+                "ohif-tmtv",
+                "ohif-seg",
+                "meddream",
+                "volview",
+                "wsi"
+            ],
+
+            "MaxStudiesDisplayed": 100,                
+            "PageLoadSize": 50,                         
+                                                        "MaxMyJobsHistorySize": 5,                  
+
+            "StudyListSearchMode": "search-as-you-type",
+            "StudyListSearchAsYouTypeMinChars": 3,      
+            "StudyListSearchAsYouTypeDelay": 400,       
+            "StudyListContentIfNoSearch": "most-recents", 
+            "ShowOrthancName": true,                   
+            "UploadReportTags" : [                      
+                "PatientName", 
+                "StudyDescription",
+                "PatientID",
+                "AccessionNumber", 
+                "StudyDate" 
+            ],
+            "UploadReportMaxTags" : 2,            
+            "StudyListColumns" : [
+                "PatientBirthDate",
+                "PatientName",
+                "PatientID",
+                "InstitutionName",
+                "StudyDescription",
+                "StudyDate",
+                "modalities",
+                "AccessionNumber",
+                "seriesAndInstancesCount"
+            ],
+
+            "PatientMainTags" : [
+                "PatientID",
+                "PatientName",
+                "PatientBirthDate",
+                "PatientSex",
+                "OtherPatientIDs"
+            ],
+            
+            "StudyMainTags" : [
+                "StudyDate",
+                "StudyTime",
+                "StudyDescription",
+                "AccessionNumber",
+                "StudyID",
+                "StudyInstanceUID",
+                "RequestingPhysician",
+                "ReferringPhysicianName",
+                "InstitutionName"
+            ],
+
+            "SeriesMainTags" : [
+                "SeriesDate",
+                "SeriesTime",
+                "SeriesDescription",
+                "SeriesNumber",
+                "BodyPartExamined",
+                "ProtocolName",
+                "SeriesInstanceUID"
+            ],
+
+      
+            "ModalitiesFilter": [
+                "CR", "CT", "DOC", "DR",  "KO", "MG", "MR", "NM", "OT", "PR", "PT", "PX", "RTDOSE", "RTSTRUCT", "RTPLAN", "SEG", "SR", "US", "XA", "XC"
+            ],
+
+          
+           
+            "DefaultLanguage" : null,
+
+        
+            "TranslateDicomTags" : true,
+
+            "DateFormat": "dd/MM/yyyy",
+
+            "PatientNameCapture" : "([^\\^]+)\\^?([^\\^]+)?\\^?([^\\^]+)?\\^?([^\\^]+)?\\^?([^\\^]+)?",
+
+            "Modifications": {
+
+                "AllowedModes": ["modify-new-uids", "modify-keep-uids", "duplicate"],
+                "DefaultMode": "modify-new-uids",
+
+                "SeriesAllowedModes": ["modify-new-uids", "modify-keep-uids", "duplicate"],
+                "SeriesDefaultMode": "modify-new-uids"
+
+            },
+
+            "ShowSamePatientStudiesFilter" : [
+                "PatientID"
+            ]
+        },
+
+        "Shares" : {
+            "TokenService" : {
+                "Url": "http://change-me:8000/shares",
+                "Username": "change-me",
+                "Password": "change-me"
+            },
+            "Type": "osimis-viewer-publication" 
+        },
+
+       
+        "Keycloak" : {
+            "Enable": false,
+            "Url": "http://change-me:8080/",
+            "Realm": "change-me",
+            "ClientId": "change-me"
+        },
+
+   
+        "Tokens" : {
+            "InstantLinksValidity": 200,             
+            "ShareType": "stone-viewer-publication"     
+        }
+    }
+}
+
